@@ -8,10 +8,15 @@ const HeroSection = () => {
       {/* Background Gradient */}
       <div className="absolute inset-0 hero-gradient opacity-90"></div>
       
-      {/* Background Pattern */}
+      {/* Background Pattern & Effects */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-white/5 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:30px_30px]"></div>
       </div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute bottom-32 right-16 w-32 h-32 bg-accent/20 rounded-full blur-2xl animate-pulse delay-700"></div>
+      <div className="absolute top-1/3 right-20 w-16 h-16 bg-white/5 rounded-full blur-lg animate-pulse delay-300"></div>
 
       <div className="relative container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto space-y-8">
@@ -27,7 +32,7 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/login">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4 text-lg shadow-large">
                 Começar Agora
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -36,7 +41,7 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-white/10 font-semibold"
+              className="border-2 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm font-semibold px-8 py-4 text-lg"
             >
               <Play className="mr-2 h-5 w-5" />
               Assistir Apresentação

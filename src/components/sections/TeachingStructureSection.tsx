@@ -68,20 +68,24 @@ const TeachingStructureSection = () => {
 
         {/* CTA Section */}
         <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-soft border border-border/50 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Pronto para começar sua jornada?
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Junte-se a centenas de estudantes que já estão construindo seu futuro conosco.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary px-6 py-3 rounded-lg font-semibold">
-                Conhecer Planos
-              </button>
-              <button className="btn-secondary px-6 py-3 rounded-lg font-semibold">
-                Agendar Demonstração
-              </button>
+          <div className="bg-gradient-to-r from-primary to-accent text-white rounded-2xl p-8 shadow-large max-w-2xl mx-auto relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-8 translate-x-8"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-6 -translate-x-6"></div>
+            <div className="relative">
+              <h3 className="text-2xl font-bold mb-4">
+                Pronto para começar sua jornada?
+              </h3>
+              <p className="text-white/90 mb-6">
+                Junte-se a centenas de estudantes que já estão construindo seu futuro conosco.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-lg font-semibold transition-colors">
+                  Conhecer Planos
+                </button>
+                <button className="border-2 border-white/30 text-white hover:bg-white/20 px-6 py-3 rounded-lg font-semibold transition-colors">
+                  Agendar Demonstração
+                </button>
+              </div>
             </div>
           </div>
         </div>

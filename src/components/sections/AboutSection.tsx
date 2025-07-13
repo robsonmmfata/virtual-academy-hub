@@ -58,11 +58,17 @@ const AboutSection = () => {
               <div className="absolute inset-0 hero-gradient opacity-20"></div>
             </div>
             
-            {/* Floating Card */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-medium border border-border">
+            {/* Floating Cards */}
+            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-large border border-border">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">5+</div>
                 <div className="text-sm text-muted-foreground">Anos de Experiência</div>
+              </div>
+            </div>
+            <div className="absolute -top-6 -right-6 bg-accent p-4 rounded-xl shadow-large text-white">
+              <div className="text-center">
+                <div className="text-xl font-bold">100%</div>
+                <div className="text-xs opacity-90">Virtual</div>
               </div>
             </div>
           </div>
