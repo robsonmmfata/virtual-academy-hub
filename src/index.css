@@ -43,9 +43,11 @@ All colors MUST be HSL.
     --ring: 210 100% 45%;
 
     /* Educational theme colors */
-    --hero-gradient: linear-gradient(135deg, 210 100% 45%, 142 76% 36%);
-    --card-gradient: linear-gradient(145deg, 0 0% 100%, 210 40% 98%);
-    --accent-gradient: linear-gradient(135deg, 142 76% 36%, 142 76% 42%);
+    --hero-gradient: linear-gradient(135deg, hsl(210 100% 45%), hsl(220 100% 55%), hsl(142 76% 36%));
+    --card-gradient: linear-gradient(145deg, hsl(210 20% 98%), hsl(210 30% 96%));
+    --accent-gradient: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 70% 40%));
+    --section-gradient: linear-gradient(180deg, hsl(210 40% 98%), hsl(220 30% 95%));
+    --dark-section: linear-gradient(135deg, hsl(220 30% 8%), hsl(230 35% 12%));
     
     /* Shadows for depth */
     --shadow-soft: 0 4px 6px -1px hsl(210 40% 8% / 0.1), 0 2px 4px -1px hsl(210 40% 8% / 0.06);
@@ -162,5 +164,13 @@ All colors MUST be HSL.
   
   .btn-secondary {
     @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-smooth;
+  }
+  
+  .section-gradient {
+    background: var(--section-gradient);
+  }
+  
+  .dark-section {
+    background: var(--dark-section);
   }
 }
