@@ -254,11 +254,11 @@ const ProfessorDashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/professor/upload'}>
               <Upload className="h-5 w-5" />
               <span className="text-sm">Enviar Conteúdo</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/professor/tasks'}>
               <CheckSquare className="h-5 w-5" />
               <span className="text-sm">Corrigir Tarefas</span>
             </Button>

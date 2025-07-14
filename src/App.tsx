@@ -13,8 +13,13 @@ import Tasks from "./pages/student/Tasks";
 import Schedule from "./pages/student/Schedule";
 import AdminLayout from "./components/layout/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminStudents from "./pages/admin/AdminStudents";
+import AdminTeachers from "./pages/admin/AdminTeachers";
+import AdminAnnouncements from "./pages/admin/AdminAnnouncements";
 import ProfessorLayout from "./components/layout/ProfessorLayout";
 import ProfessorDashboard from "./pages/professor/ProfessorDashboard";
+import ProfessorUpload from "./pages/professor/ProfessorUpload";
+import ProfessorTasks from "./pages/professor/ProfessorTasks";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,9 +41,14 @@ const App = () => (
           <Route path="/student/messages" element={<StudentLayout><div className="text-center py-12"><h2 className="text-xl font-bold mb-2">Mensagens</h2><p className="text-muted-foreground">Sistema de mensagens em desenvolvimento...</p></div></StudentLayout>} />
           <Route path="/professor" element={<ProfessorLayout />}>
             <Route index element={<ProfessorDashboard />} />
+            <Route path="upload" element={<ProfessorUpload />} />
+            <Route path="tasks" element={<ProfessorTasks />} />
           </Route>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
+            <Route path="students" element={<AdminStudents />} />
+            <Route path="teachers" element={<AdminTeachers />} />
+            <Route path="announcements" element={<AdminAnnouncements />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

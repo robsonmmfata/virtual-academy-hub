@@ -196,11 +196,11 @@ const AdminDashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/admin/students'}>
               <Users className="h-5 w-5" />
               <span className="text-sm">Gerenciar Alunos</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/admin/teachers'}>
               <GraduationCap className="h-5 w-5" />
               <span className="text-sm">Gerenciar Professores</span>
             </Button>
@@ -208,7 +208,7 @@ const AdminDashboard = () => {
               <BookOpen className="h-5 w-5" />
               <span className="text-sm">Gerenciar Cursos</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/admin/announcements'}>
               <MessageSquare className="h-5 w-5" />
               <span className="text-sm">Comunicados</span>
             </Button>
