@@ -11,6 +11,10 @@ import Classes from "./pages/student/Classes";
 import Materials from "./pages/student/Materials";
 import Tasks from "./pages/student/Tasks";
 import Schedule from "./pages/student/Schedule";
+import AdminLayout from "./components/layout/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ProfessorLayout from "./components/layout/ProfessorLayout";
+import ProfessorDashboard from "./pages/professor/ProfessorDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,8 +34,12 @@ const App = () => (
           <Route path="/student/tasks" element={<StudentLayout><Tasks /></StudentLayout>} />
           <Route path="/student/schedule" element={<StudentLayout><Schedule /></StudentLayout>} />
           <Route path="/student/messages" element={<StudentLayout><div className="text-center py-12"><h2 className="text-xl font-bold mb-2">Mensagens</h2><p className="text-muted-foreground">Sistema de mensagens em desenvolvimento...</p></div></StudentLayout>} />
-          <Route path="/professor" element={<div className="min-h-screen flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Portal do Professor</h1><p className="text-muted-foreground">Em desenvolvimento...</p></div></div>} />
-          <Route path="/admin" element={<div className="min-h-screen flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Painel Administrativo</h1><p className="text-muted-foreground">Em desenvolvimento...</p></div></div>} />
+          <Route path="/professor" element={<ProfessorLayout />}>
+            <Route index element={<ProfessorDashboard />} />
+          </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

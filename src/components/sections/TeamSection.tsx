@@ -1,12 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Star } from "lucide-react";
+import profAnaImage from "@/assets/prof-ana.jpg";
 
 const TeamSection = () => {
   const teachers = [
     {
       name: "Prof. Ana Silva",
       subject: "Matemática e Física",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b79e0a3f?w=300&h=300&fit=crop&crop=face",
+      image: profAnaImage,
       experience: "12 anos de experiência",
       rating: 4.9,
       description: "Especialista em preparação para vestibulares, com foco em metodologias ativas."
@@ -54,13 +55,13 @@ const TeamSection = () => {
   ];
 
   return (
-    <section id="equipe" className="py-20 dark-section text-white">
+    <section id="equipe" className="py-20 bg-gradient-to-br from-muted/30 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Nossa Equipe Pedagógica
           </h2>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Professores especializados e dedicados, comprometidos com o seu sucesso acadêmico. 
             Cada um com vasta experiência e paixão pelo ensino.
           </p>
@@ -113,19 +114,19 @@ const TeamSection = () => {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="text-center">
             <div className="text-3xl font-bold text-accent mb-2">25+</div>
-            <div className="text-white/80">Professores Especialistas</div>
+            <div className="text-muted-foreground">Professores Especialistas</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-accent mb-2">4.9</div>
-            <div className="text-white/80">Avaliação Média</div>
+            <div className="text-muted-foreground">Avaliação Média</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-accent mb-2">120+</div>
-            <div className="text-white/80">Horas de Formação/Mês</div>
+            <div className="text-muted-foreground">Horas de Formação/Mês</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-accent mb-2">98%</div>
-            <div className="text-white/80">Satisfação dos Alunos</div>
+            <div className="text-muted-foreground">Satisfação dos Alunos</div>
           </div>
         </div>
       </div>
