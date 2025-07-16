@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import { 
   Users, 
   BookOpen, 
@@ -10,10 +12,21 @@ import {
   Upload,
   FileText,
   TrendingUp,
-  Clock
+  Clock,
+  BarChart3
 } from "lucide-react";
 
 const ProfessorDashboard = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleQuickAction = (action: string, path: string) => {
+    toast({
+      title: "Redirecionando",
+      description: `Acessando ${action}...`,
+    });
+    navigate(path);
+  };
   const stats = [
     {
       title: "Minhas Turmas",
@@ -254,21 +267,45 @@ const ProfessorDashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/professor/upload'}>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2" 
+              onClick={() => handleQuickAction("Enviar Conteúdo", "/professor/upload")}
+            >
               <Upload className="h-5 w-5" />
               <span className="text-sm">Enviar Conteúdo</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/professor/tasks'}>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2" 
+              onClick={() => handleQuickAction("Corrigir Tarefas", "/professor/tasks")}
+            >
               <CheckSquare className="h-5 w-5" />
               <span className="text-sm">Corrigir Tarefas</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Mensagens", "/professor/messages")}
+            >
               <MessageSquare className="h-5 w-5" />
               <span className="text-sm">Mensagens</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
-              <FileText className="h-5 w-5" />
-              <span className="text-sm">Relatórios</span>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Cronograma", "/professor/schedule")}
+            >
+              <Calendar className="h-5 w-5" />
+              <span className="text-sm">Cronograma</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Desempenho", "/professor/performance")}
+            >
+              <BarChart3 className="h-5 w-5" />
+              <span className="text-sm">Desempenho</span>
             </Button>
           </div>
         </CardContent>

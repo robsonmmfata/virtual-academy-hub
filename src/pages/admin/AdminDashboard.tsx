@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import { 
   Users, 
   GraduationCap, 
@@ -9,10 +11,21 @@ import {
   MessageSquare,
   Settings,
   BarChart3,
-  Calendar
+  Calendar,
+  FileText
 } from "lucide-react";
 
 const AdminDashboard = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleQuickAction = (action: string, path: string) => {
+    toast({
+      title: "Redirecionando",
+      description: `Acessando ${action}...`,
+    });
+    navigate(path);
+  };
   const stats = [
     {
       title: "Total de Alunos",
@@ -196,27 +209,59 @@ const AdminDashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/admin/students'}>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2" 
+              onClick={() => handleQuickAction("Gerenciar Alunos", "/admin/students")}
+            >
               <Users className="h-5 w-5" />
               <span className="text-sm">Gerenciar Alunos</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/admin/teachers'}>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2" 
+              onClick={() => handleQuickAction("Gerenciar Professores", "/admin/teachers")}
+            >
               <GraduationCap className="h-5 w-5" />
               <span className="text-sm">Gerenciar Professores</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Gerenciar Cursos", "/admin/courses")}
+            >
               <BookOpen className="h-5 w-5" />
               <span className="text-sm">Gerenciar Cursos</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => window.location.href = '/admin/announcements'}>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2" 
+              onClick={() => handleQuickAction("Comunicados", "/admin/announcements")}
+            >
               <MessageSquare className="h-5 w-5" />
               <span className="text-sm">Comunicados</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Relatórios", "/admin/reports")}
+            >
               <BarChart3 className="h-5 w-5" />
               <span className="text-sm">Relatórios</span>
             </Button>
-            <Button variant="outline" className="h-16 flex-col gap-2">
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Documentos", "/admin/documents")}
+            >
+              <FileText className="h-5 w-5" />
+              <span className="text-sm">Documentos</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-16 flex-col gap-2"
+              onClick={() => handleQuickAction("Configurações", "/admin/settings")}
+            >
               <Settings className="h-5 w-5" />
               <span className="text-sm">Configurações</span>
             </Button>

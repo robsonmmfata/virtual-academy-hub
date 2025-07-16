@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import { 
   MessageSquare, 
   Send,
@@ -15,7 +17,11 @@ import {
 } from "lucide-react";
 
 const AdminAnnouncements = () => {
-  const announcements = [
+  const { toast } = useToast();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [recipients, setRecipients] = useState("all");
+  const [announcements, setAnnouncements] = useState([
     {
       id: 1,
       title: "Início do Período Letivo 2024",
@@ -46,7 +52,30 @@ const AdminAnnouncements = () => {
       status: "draft",
       views: 0
     }
-  ];
+  ]);
+
+  const handleEdit = (announcement: any) => {
+    toast({
+      title: "Editar Comunicado",
+      description: `Editando: ${announcement.title}`,
+    });
+  };
+
+  const handleDelete = (announcement: any) => {
+    setAnnouncements(prev => prev.filter(a => a.id !== announcement.id));
+    toast({
+      title: "Comunicado Removido",
+      description: `${announcement.title} foi removido`,
+      variant: "destructive",
+    });
+  };
+
+  const handleView = (announcement: any) => {
+    toast({
+      title: "Visualizar Comunicado",
+      description: `Abrindo: ${announcement.title}`,
+    });
+  };
 
   const stats = [
     {
@@ -76,7 +105,7 @@ const AdminAnnouncements = () => {
           <h1 className="text-2xl font-bold">Comunicados</h1>
           <p className="text-muted-foreground">Gerencie comunicados para alunos e professores</p>
         </div>
-        <Button className="flex items-center gap-2">
+        <Button onClick={() => document.getElementById('announcement-form')?.scrollIntoView()} className="flex items-center gap-2">
           <Plus className="h-4 w-4" />
           Novo Comunicado
         </Button>
@@ -174,13 +203,28 @@ const AdminAnnouncements = () => {
                     <span>{announcement.views} visualizações</span>
                   </div>
                   <div className="flex gap-2 mt-2">
-                    <Button variant="ghost" size="sm">
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => handleEdit(announcement)}
+                      title="Editar comunicado"
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => handleView(announcement)}
+                      title="Visualizar comunicado"
+                    >
                       <Eye className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => handleDelete(announcement)}
+                      title="Remover comunicado"
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>

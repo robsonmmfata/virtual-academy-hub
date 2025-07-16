@@ -2,6 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import { 
   Users, 
   UserCheck, 
@@ -15,7 +17,10 @@ import {
 } from "lucide-react";
 
 const AdminStudents = () => {
-  const students = [
+  const { toast } = useToast();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [students, setStudents] = useState([
     {
       id: 1,
       name: "João Silva",
@@ -56,7 +61,45 @@ const AdminStudents = () => {
       enrollment: "2024004",
       joinDate: "2024-01-18"
     }
-  ];
+  ]);
+
+  // Filter students based on search and status
+  const filteredStudents = students.filter(student => {
+    const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         student.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "all" || student.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  const handleEdit = (student: any) => {
+    toast({
+      title: "Editar Aluno",
+      description: `Editando dados de ${student.name}`,
+    });
+  };
+
+  const handleDelete = (student: any) => {
+    setStudents(prev => prev.filter(s => s.id !== student.id));
+    toast({
+      title: "Aluno Removido",
+      description: `${student.name} foi removido do sistema`,
+      variant: "destructive",
+    });
+  };
+
+  const handleSendEmail = (student: any) => {
+    toast({
+      title: "Email Enviado",
+      description: `Email enviado para ${student.name} (${student.email})`,
+    });
+  };
+
+  const handleNewStudent = () => {
+    toast({
+      title: "Novo Aluno",
+      description: "Abrindo formulário para cadastrar novo aluno",
+    });
+  };
 
   const stats = [
     {
@@ -86,7 +129,7 @@ const AdminStudents = () => {
           <h1 className="text-2xl font-bold">Gerenciar Alunos</h1>
           <p className="text-muted-foreground">Controle de alunos matriculados</p>
         </div>
-        <Button className="flex items-center gap-2">
+        <Button onClick={handleNewStudent} className="flex items-center gap-2">
           <Plus className="h-4 w-4" />
           Novo Aluno
         </Button>
@@ -119,10 +162,19 @@ const AdminStudents = () => {
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Buscar aluno..." className="pl-10" />
+                <Input 
+                  placeholder="Buscar aluno..." 
+                  className="pl-10" 
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
             </div>
-            <select className="px-3 py-2 border rounded-md">
+            <select 
+              className="px-3 py-2 border rounded-md"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
               <option value="all">Todos</option>
               <option value="active">Ativos</option>
               <option value="inactive">Inativos</option>
@@ -153,7 +205,7 @@ const AdminStudents = () => {
                 </tr>
               </thead>
               <tbody>
-                {students.map((student) => (
+                {filteredStudents.map((student) => (
                   <tr key={student.id} className="border-b">
                     <td className="p-2">
                       <div>
@@ -171,13 +223,28 @@ const AdminStudents = () => {
                     </td>
                     <td className="p-2">
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleEdit(student)}
+                          title="Editar aluno"
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleSendEmail(student)}
+                          title="Enviar email"
+                        >
                           <Mail className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleDelete(student)}
+                          title="Remover aluno"
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

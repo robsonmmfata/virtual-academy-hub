@@ -2,6 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import { 
   GraduationCap, 
   UserCheck, 
@@ -16,7 +18,10 @@ import {
 } from "lucide-react";
 
 const AdminTeachers = () => {
-  const teachers = [
+  const { toast } = useToast();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [teachers, setTeachers] = useState([
     {
       id: 1,
       name: "Prof. Ana Silva",
@@ -61,7 +66,46 @@ const AdminTeachers = () => {
       experience: "8 anos",
       joinDate: "2023-04-15"
     }
-  ];
+  ]);
+
+  // Filter teachers based on search and status
+  const filteredTeachers = teachers.filter(teacher => {
+    const matchesSearch = teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         teacher.subject.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "all" || teacher.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  const handleEdit = (teacher: any) => {
+    toast({
+      title: "Editar Professor",
+      description: `Editando dados de ${teacher.name}`,
+    });
+  };
+
+  const handleDelete = (teacher: any) => {
+    setTeachers(prev => prev.filter(t => t.id !== teacher.id));
+    toast({
+      title: "Professor Removido",
+      description: `${teacher.name} foi removido do sistema`,
+      variant: "destructive",
+    });
+  };
+
+  const handleSendEmail = (teacher: any) => {
+    toast({
+      title: "Email Enviado",
+      description: `Email enviado para ${teacher.name} (${teacher.email})`,
+    });
+  };
+
+  const handleNewTeacher = () => {
+    toast({
+      title: "Novo Professor",
+      description: "Abrindo formulário para cadastrar novo professor",
+    });
+  };
 
   const stats = [
     {
@@ -91,7 +135,7 @@ const AdminTeachers = () => {
           <h1 className="text-2xl font-bold">Gerenciar Professores</h1>
           <p className="text-muted-foreground">Controle do corpo docente</p>
         </div>
-        <Button className="flex items-center gap-2">
+        <Button onClick={handleNewTeacher} className="flex items-center gap-2">
           <Plus className="h-4 w-4" />
           Novo Professor
         </Button>
@@ -124,10 +168,19 @@ const AdminTeachers = () => {
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Buscar professor..." className="pl-10" />
+                <Input 
+                  placeholder="Buscar professor..." 
+                  className="pl-10"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
             </div>
-            <select className="px-3 py-2 border rounded-md">
+            <select 
+              className="px-3 py-2 border rounded-md"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
               <option value="all">Todos</option>
               <option value="active">Ativos</option>
               <option value="inactive">Inativos</option>
@@ -159,7 +212,7 @@ const AdminTeachers = () => {
                 </tr>
               </thead>
               <tbody>
-                {teachers.map((teacher) => (
+                {filteredTeachers.map((teacher) => (
                   <tr key={teacher.id} className="border-b">
                     <td className="p-2">
                       <div>
@@ -178,13 +231,28 @@ const AdminTeachers = () => {
                     </td>
                     <td className="p-2">
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleEdit(teacher)}
+                          title="Editar professor"
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleSendEmail(teacher)}
+                          title="Enviar email"
+                        >
                           <Mail className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleDelete(teacher)}
+                          title="Remover professor"
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
